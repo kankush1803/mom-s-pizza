@@ -54,6 +54,7 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("menu");
   const [cart, setCart] = useState([]);
+  const [toast, setToast] = useState(null);
 
   const addToCart = (item) => {
     setCart((prev) => {
@@ -65,7 +66,15 @@ export default function App() {
       }
       return [...prev, { ...item, qty: 1 }];
     });
+    setToast(`Added ${item.name} to order!`);
   };
+
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   const removeFromCart = (itemIndex) => {
     setCart((prev) => prev.filter((_, idx) => idx !== itemIndex));
@@ -195,6 +204,21 @@ export default function App() {
 
       {/* Mobile Bottom Navigation */}
       <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} cartCount={cart.reduce((sum, item) => sum + item.qty, 0)} />
+
+      {/* Global Toast Notification */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
+            exit={{ opacity: 0, scale: 0.9, y: 20, x: "-50%" }}
+            className="fixed bottom-24 left-1/2 z-[100] bg-primary text-on-primary px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2 text-sm border border-white/20 whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis"
+          >
+            <span className="material-symbols-outlined text-sm">check_circle</span>
+            <span className="truncate">{toast}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
