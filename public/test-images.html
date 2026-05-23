@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Images Test</h1>
+<script type="module">
+  import { getFoodImageUrl } from '../src/utils/foodImages.js';
+  
+  const map = {
+    // veg pizzas
+    "margherita pizza": "https://images.pexels.com/photos/2147491/pexels-photo-2147491.jpeg",
+    "mix veg pizza": "https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg",
+    "mexican veg pizza": "https://images.pexels.com/photos/4109111/pexels-photo-4109111.jpeg",
+    "american veg pizza": "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg",
+    "tandoori chicken pizza": "https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg",
+    "chicken burger": "https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg",
+    "kfc type chicken burger": "https://images.pexels.com/photos/2282532/pexels-photo-2282532.jpeg",
+    "veg pasta": "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg",
+    "paneer pasta": "https://images.pexels.com/photos/1438672/pexels-photo-1438672.jpeg",
+    "hyderabadi chicken biryani": "https://images.pexels.com/photos/7394819/pexels-photo-7394819.jpeg",
+    "rice chicken bowl": "https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg",
+    "paneer chilli": "https://images.pexels.com/photos/2116094/pexels-photo-2116094.jpeg",
+    "paneer noodles": "https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg",
+    "chicken chilli": "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg",
+    "special chicken egg roll": "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg",
+    "chicken soup": "https://images.pexels.com/photos/539451/pexels-photo-539451.jpeg",
+    "veg soup": "https://images.pexels.com/photos/1731535/pexels-photo-1731535.jpeg",
+    "plain paratha": "https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg"
+  };
+
+  for (const [name, url] of Object.entries(map)) {
+    const div = document.createElement('div');
+    div.innerHTML = `<h3>${name}</h3><img src="${url}?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" />`;
+    document.body.appendChild(div);
+  }
+</script>
+</body>
+</html>
