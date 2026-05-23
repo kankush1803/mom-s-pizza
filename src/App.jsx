@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import LoadingScreen from "./components/LoadingScreen";
 import Header from "./components/Header";
@@ -212,7 +212,7 @@ export default function App() {
             initial={{ opacity: 0, y: 50, scale: 0.9, x: "-50%" }}
             animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
             exit={{ opacity: 0, scale: 0.9, y: 20, x: "-50%" }}
-            className="fixed bottom-24 left-1/2 z-[100] bg-primary text-on-primary px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2 text-sm border border-white/20 whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis"
+            className="fixed bottom-24 left-1/2 z-[100] bg-emerald-600 text-white px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2 text-sm border border-emerald-500 whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis"
           >
             <span className="material-symbols-outlined text-sm">check_circle</span>
             <span className="truncate">{toast}</span>
