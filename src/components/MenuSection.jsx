@@ -1,8 +1,34 @@
+import { motion } from "framer-motion";
 import PizzaCard from "./PizzaCard";
 import SimpleMenuCard from "./SimpleMenuCard";
 import FoodImage from "./FoodImage";
 
-export default function MenuSection({ id, title, emoji, items, layoutType, isVeg, searchQuery, addToCart }) {
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.05
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 15, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 110,
+      damping: 14
+    }
+  }
+};
+
+export default function MenuSection({ id, title, emoji, items, layoutType, isVeg, searchQuery, addToCart, isActive = true }) {
   // Filter items based on search query
   const filteredItems = searchQuery
     ? items.filter((item) =>
@@ -22,8 +48,10 @@ export default function MenuSection({ id, title, emoji, items, layoutType, isVeg
     addToCart({ name: itemName, size: qty, price: price });
   };
 
+  const displayActive = isActive || !!searchQuery;
+
   return (
-    <section id={id} className="scroll-mt-24 mt-section-gap animate-fade-in">
+    <section id={id} className={`scroll-mt-24 animate-fade-in ${searchQuery ? "mt-section-gap" : "mt-2"}`}>
       {/* Section Header with Golden Gradient Lines */}
       <div className="flex items-center gap-3 mb-6">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-primary/30"></div>
@@ -35,7 +63,12 @@ export default function MenuSection({ id, title, emoji, items, layoutType, isVeg
 
       {/* Render Pizza Layout */}
       {layoutType === "pizza" && (
-        <div className="space-y-3">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={displayActive ? "visible" : "hidden"}
+          className="space-y-3"
+        >
           {/* S R M L Price Legend */}
           <div className="grid grid-cols-4 gap-2 px-2 py-2 glass-card rounded-lg text-center text-[9px] font-bold text-primary uppercase tracking-widest">
             <span>S</span>
@@ -44,33 +77,45 @@ export default function MenuSection({ id, title, emoji, items, layoutType, isVeg
             <span>L</span>
           </div>
           {filteredItems.map((item, idx) => (
-            <PizzaCard 
-              key={item.name} 
-              item={item} 
-              isVeg={isVeg !== false} 
-              defaultExpanded={idx === 0 && !searchQuery} 
-              addToCart={addToCart}
-            />
+            <motion.div key={item.name} variants={cardVariants}>
+              <PizzaCard 
+                item={item} 
+                isVeg={isVeg !== false} 
+                defaultExpanded={idx === 0 && !searchQuery} 
+                addToCart={addToCart}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
 
       {/* Render Grid Layout */}
       {layoutType === "grid" && (
-        <div className="grid grid-cols-2 gap-3">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={displayActive ? "visible" : "hidden"}
+          className="grid grid-cols-2 gap-3"
+        >
           {filteredItems.map((item) => (
-            <SimpleMenuCard 
-              key={item.name} 
-              item={item} 
-              addToCart={addToCart}
-            />
+            <motion.div key={item.name} variants={cardVariants}>
+              <SimpleMenuCard 
+                item={item} 
+                addToCart={addToCart}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
 
       {/* Render Table Layout (Chinese, Biryani, Rice) */}
       {layoutType === "table" && (
-        <div className="glass-card rounded-xl overflow-hidden border border-white/5">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={displayActive ? "visible" : "hidden"}
+          className="glass-card rounded-xl overflow-hidden border border-white/5"
+        >
           <div className="text-[8px] text-primary/60 font-semibold tracking-wide px-3 py-2 border-b border-white/5 bg-white/[0.01] flex items-center gap-1">
             <span className="material-symbols-outlined text-[10px]">chat</span>
             <span>Tap any price cell to add to order</span>
@@ -91,7 +136,11 @@ export default function MenuSection({ id, title, emoji, items, layoutType, isVeg
                 const fullPrice = item.prices?.Full || item.prices?.full || item.price || "-";
 
                 return (
-                  <tr key={item.name} className="hover:bg-white/[0.02] transition-colors">
+                  <motion.tr
+                    key={item.name}
+                    variants={cardVariants}
+                    className="hover:bg-white/[0.02] transition-colors"
+                  >
                     <td className="p-3 font-medium">
                       <div className="flex items-center gap-2.5">
                         {/* Mini thumbnail for table rows */}
@@ -137,22 +186,28 @@ export default function MenuSection({ id, title, emoji, items, layoutType, isVeg
                         <span className="text-on-surface-variant/40 px-2.5">-</span>
                       )}
                     </td>
-                  </tr>
+                  </motion.tr>
                 );
               })}
             </tbody>
           </table>
-        </div>
+        </motion.div>
       )}
 
       {/* Render KFC Layout */}
       {layoutType === "kfc" && (
-        <div className="grid gap-3">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={displayActive ? "visible" : "hidden"}
+          className="grid gap-3"
+        >
           {filteredItems.map((item) => {
             const isVegItem = item.isVeg !== false;
             return (
-              <div 
+              <motion.div 
                 key={item.name} 
+                variants={cardVariants}
                 className="glass-card rounded-xl overflow-hidden flex flex-col"
               >
                 {/* Food Image Banner */}
@@ -203,10 +258,10 @@ export default function MenuSection({ id, title, emoji, items, layoutType, isVeg
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       )}
     </section>
   );

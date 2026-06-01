@@ -7,8 +7,10 @@ import Hero from "./components/Hero";
 import CategoryNav from "./components/CategoryNav";
 import SearchBar from "./components/SearchBar";
 import MenuSection from "./components/MenuSection";
+
 import FeaturedItems from "./components/FeaturedItems";
 import WhatsAppButton from "./components/WhatsAppButton";
+import FloatingCart from "./components/FloatingCart";
 import BottomNav from "./components/BottomNav";
 import Footer from "./components/Footer";
 import Orders from "./components/Orders";
@@ -16,35 +18,51 @@ import Orders from "./components/Orders";
 import {
   categories,
   vegPizzaMenu,
+  vegOverloadPizza,
   chickenPizzaSingle,
+  chickenPizzaDouble,
   chickenPizzaFour,
-  burgers,
-  pasta,
+  vegBurgers,
+  chickenBurgers,
+  vegPasta,
+  chickenPasta,
   biryani,
+  vegGravy,
+  nonVegGravy,
   chineseVeg,
   chineseNonVeg,
   rolls,
   soups,
   rotiNaan,
   rice,
+  salad,
   kfcChicken,
+  tandoor,
 } from "./data/menuData";
 
 // Map category IDs to their data and display config matching code.html
 const menuSections = [
   { id: "veg-pizza", title: "Veg Pizza Selection", emoji: "🍕", items: vegPizzaMenu, layoutType: "pizza", isVeg: true },
+  { id: "veg-overload", title: "Veg Overload Pizza (Extra Topping Double Cheese)", emoji: "🧀", items: vegOverloadPizza, layoutType: "pizza", isVeg: true },
   { id: "chicken-single", title: "Chicken Pizza (Single Cheese)", emoji: "🍗", items: chickenPizzaSingle, layoutType: "pizza", isVeg: false },
+  { id: "chicken-double", title: "Chicken Pizza (Double Cheese Extra Topping)", emoji: "🍕", items: chickenPizzaDouble, layoutType: "pizza", isVeg: false },
   { id: "chicken-four", title: "Chicken Pizza (Four Cheese)", emoji: "🧀", items: chickenPizzaFour, layoutType: "pizza", isVeg: false },
-  { id: "kfc-chicken", title: "KFC Type Chicken", emoji: "🍗", items: kfcChicken, layoutType: "kfc" },
-  { id: "biryani", title: "Biryani", emoji: "🍚", items: biryani, layoutType: "kfc" },
-  { id: "burgers", title: "Gourmet Burgers", emoji: "🍔", items: burgers, layoutType: "grid" },
-  { id: "pasta", title: "Pasta", emoji: "🍝", items: pasta, layoutType: "grid" },
-  { id: "chinese-veg", title: "Chinese Veg", emoji: "🥡", items: chineseVeg, layoutType: "table" },
-  { id: "chinese-nonveg", title: "Chinese Non Veg", emoji: "🥢", items: chineseNonVeg, layoutType: "table" },
-  { id: "rolls", title: "Rolls", emoji: "🌯", items: rolls, layoutType: "grid" },
-  { id: "soups", title: "Soups", emoji: "🍜", items: soups, layoutType: "grid" },
-  { id: "roti-naan", title: "Roti / Naan", emoji: "🫓", items: rotiNaan, layoutType: "grid" },
-  { id: "rice", title: "Rice", emoji: "🍚", items: rice, layoutType: "table" },
+  { id: "tandoor", title: "Tandoor Selection", emoji: "🔥", items: tandoor, layoutType: "kfc", isVeg: false },
+  { id: "kfc-chicken", title: "KFC Type Chicken", emoji: "🍗", items: kfcChicken, layoutType: "kfc", isVeg: false },
+  { id: "biryani", title: "Aromatic Biryani", emoji: "🍚", items: biryani, layoutType: "kfc", isVeg: false },
+  { id: "veg-gravy", title: "Veg Gravy", emoji: "🍲", items: vegGravy, layoutType: "table", isVeg: true },
+  { id: "nonveg-gravy", title: "Non Veg Gravy", emoji: "🍲", items: nonVegGravy, layoutType: "table", isVeg: false },
+  { id: "burgers", title: "Gourmet Veg Burgers", emoji: "🍔", items: vegBurgers, layoutType: "grid", isVeg: true },
+  { id: "chicken-burger", title: "Premium Chicken Burgers", emoji: "🍔", items: chickenBurgers, layoutType: "grid", isVeg: false },
+  { id: "pasta", title: "Veg Pasta", emoji: "🍝", items: vegPasta, layoutType: "grid", isVeg: true },
+  { id: "chicken-pasta", title: "Chicken Pasta", emoji: "🍝", items: chickenPasta, layoutType: "grid", isVeg: false },
+  { id: "chinese-veg", title: "Chinese Veg", emoji: "🥡", items: chineseVeg, layoutType: "table", isVeg: true },
+  { id: "chinese-nonveg", title: "Chinese Non Veg", emoji: "🥢", items: chineseNonVeg, layoutType: "table", isVeg: false },
+  { id: "rolls", title: "Special Rolls", emoji: "🌯", items: rolls, layoutType: "grid" },
+  { id: "soups", title: "Healthy Soups", emoji: "🍜", items: soups, layoutType: "grid" },
+  { id: "roti-naan", title: "Roti / Naan", emoji: "🫓", items: rotiNaan, layoutType: "grid", isVeg: true },
+  { id: "rice", title: "Rice Selection", emoji: "🍚", items: rice, layoutType: "table", isVeg: true },
+  { id: "salad", title: "Fresh Salads", emoji: "🥗", items: salad, layoutType: "grid", isVeg: true },
 ];
 
 export default function App() {
@@ -80,11 +98,21 @@ export default function App() {
     setCart((prev) => prev.filter((_, idx) => idx !== itemIndex));
   };
 
+  const updateQuantity = (itemIndex, change) => {
+    setCart((prev) =>
+      prev
+        .map((item, idx) =>
+          idx === itemIndex ? { ...item, qty: item.qty + change } : item
+        )
+        .filter((item) => item.qty > 0)
+    );
+  };
+
   const checkoutWhatsApp = () => {
     if (cart.length === 0) return;
-    const itemsText = cart.map(item => `${item.qty}x ${item.name} ${item.size ? `(${item.size})` : ''} - ₹${item.price * item.qty}`).join('\n');
+    const itemsText = cart.map(item => `• *${item.qty}x ${item.name}* ${item.size ? `(${item.size})` : ''} - ₹${item.price * item.qty}`).join('\n');
     const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    const text = `Hi! I would like to place an order:\n\n${itemsText}\n\nTotal: ₹${total}`;
+    const text = `*New Order - Mom's Pizza & Cafe*\n----------------------------------\n${itemsText}\n----------------------------------\n*Total Amount:* ₹${total}\n\nHi! I would like to place this order. Please confirm.`;
     window.open(`https://wa.me/919304679042?text=${encodeURIComponent(text)}`, "_blank");
   };
 
@@ -94,15 +122,16 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll spy to update the active category in the header bar
+  // Scroll spy to update the active category as user scrolls vertically
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY;
-    const offset = 180;
+    const offset = 200;
     
-    for (let i = categories.length - 1; i >= 0; i--) {
-      const el = document.getElementById(categories[i].id);
+    // Find which section is currently in view
+    for (let i = menuSections.length - 1; i >= 0; i--) {
+      const el = document.getElementById(menuSections[i].id);
       if (el && scrollY >= el.offsetTop - offset) {
-        setActiveCategory(categories[i].id);
+        setActiveCategory(menuSections[i].id);
         break;
       }
     }
@@ -170,7 +199,7 @@ export default function App() {
             {!searchQuery && <FeaturedItems />}
 
             {/* Menu Categories */}
-            <div className="space-y-section-gap">
+            <div className="space-y-section-gap animate-fade-in">
               {menuSections.map((section) => (
                 <MenuSection
                   key={section.id}
@@ -182,6 +211,7 @@ export default function App() {
                   isVeg={section.isVeg}
                   searchQuery={searchQuery}
                   addToCart={addToCart}
+                  isActive={true}
                 />
               ))}
             </div>
@@ -190,6 +220,7 @@ export default function App() {
           <Orders 
             cart={cart} 
             removeFromCart={removeFromCart} 
+            updateQuantity={updateQuantity}
             checkoutWhatsApp={checkoutWhatsApp} 
             setActiveTab={setActiveTab} 
           />
@@ -199,8 +230,18 @@ export default function App() {
         <Footer />
       </main>
 
-      {/* Floating Order FAB (Hide if in orders tab) */}
-      {activeTab === "menu" && <WhatsAppButton />}
+      {/* Floating Order FAB (Hide if in orders tab or if cart is not empty) */}
+      {activeTab === "menu" && cart.length === 0 && <WhatsAppButton />}
+
+      {/* Sticky Floating Cart Summary */}
+      <AnimatePresence>
+        {activeTab === "menu" && cart.length > 0 && (
+          <FloatingCart 
+            cart={cart} 
+            onClick={() => setActiveTab("orders")} 
+          />
+        )}
+      </AnimatePresence>
 
       {/* Mobile Bottom Navigation */}
       <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} cartCount={cart.reduce((sum, item) => sum + item.qty, 0)} />
