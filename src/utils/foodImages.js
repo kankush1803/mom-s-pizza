@@ -72,17 +72,17 @@ const FOOD_IMAGE_MAP = {
   "chicken dehati": "https://thecurrymommy.com/wp-content/uploads/2021/09/desi-chicken-recipe.jpg",
 
   // === CHINESE VEG ===
-  "paneer chilli": "https://images.pexels.com/photos/2116094/pexels-photo-2116094.jpeg",
-  "mushroom chilli": "https://images.pexels.com/photos/2116094/pexels-photo-2116094.jpeg",
-  "baby corn chilli": "https://images.pexels.com/photos/2116094/pexels-photo-2116094.jpeg",
+  "paneer chilli": "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/chilli-paneer-recipe.jpg",
+  "mushroom chilli": "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/chilli-paneer-recipe.jpg",
+  "baby corn chilli": "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/02/chilli-paneer-recipe.jpg",
   "paneer fried rice": "https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg",
   "paneer noodles": "https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg",
   "veg noodles": "https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg",
   "baby corn crispy": "https://images.pexels.com/photos/2116094/pexels-photo-2116094.jpeg",
 
   // === CHINESE NON-VEG ===
-  "chicken chilli": "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg",
-  "chicken lollipop": "https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg",
+  "chicken chilli": "https://vismaifood.com/storage/app/uploads/public/65b/760/990/thumb__700_0_0_0_auto.jpg",
+  "chicken lollipop": "https://nishkitchen.com/wp-content/uploads/2018/11/Chicken-Lollipop-3B.jpg",
   "chicken noodles": "https://images.pexels.com/photos/2347311/pexels-photo-2347311.jpeg",
   "chicken 65": "https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg",
   "chicken crispy": "https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg",
