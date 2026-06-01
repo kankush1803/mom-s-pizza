@@ -71,6 +71,75 @@ export const vegPizzaMenu = [
   },
 ];
 
+// --- VEG PIZZA (Single Cheese) ---
+export const vegPizzaSingleCheese = [
+  {
+    name: "Margeta Pizza",
+    ingredients: "Only Cheese",
+    prices: { S: 69, R: 99, M: 150, L: 200 },
+  },
+  {
+    name: "Mix Veg Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno",
+    prices: { S: 90, R: 130, M: 170, L: 230 },
+  },
+  {
+    name: "Maxican Veg Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Red Paprica",
+    prices: { S: 99, R: 140, M: 190, L: 250 },
+  },
+  {
+    name: "American Veg Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Corn",
+    prices: { S: 110, R: 150, M: 200, L: 260 },
+  },
+  {
+    name: "Paneer Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Paneer",
+    prices: { S: 110, R: 159, M: 210, L: 280 },
+  },
+  {
+    name: "Butter Paneer Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Paneer",
+    prices: { S: 120, R: 180, M: 230, L: 300 },
+  },
+  {
+    name: "Fry Paneer Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Fry Paneer",
+    prices: { S: 120, R: 170, M: 220, L: 280 },
+  },
+  {
+    name: "Tandoori Paneer Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Tandoori Paneer",
+    prices: { S: 150, R: 200, M: 250, L: 300 },
+  },
+  {
+    name: "Makhni Paneer Pizza",
+    ingredients: "Cheese, Onion, Tomato, Capsicum, Jalapeno, Makhni Paneer",
+    prices: { S: 150, R: 200, M: 250, L: 300 },
+  },
+  {
+    name: "Corn Pizza",
+    ingredients: "Cheese, Onion",
+    prices: { S: 90, R: 120, M: 170, L: 230 },
+  },
+  {
+    name: "Onion Pizza",
+    ingredients: "Cheese, Onion",
+    prices: { S: 90, R: 120, M: 170, L: 230 },
+  },
+  {
+    name: "Tomato Pizza",
+    ingredients: "Cheese, Tomato",
+    prices: { S: 90, R: 120, M: 170, L: 230 },
+  },
+  {
+    name: "Capsicum Pizza",
+    ingredients: "Cheese, Capsicum",
+    prices: { S: 90, R: 120, M: 170, L: 230 },
+  },
+];
+
 // --- VEG OVERLOAD PIZZA (Extra Topping Double Cheese) ---
 export const vegOverloadPizza = [
   {
@@ -318,6 +387,7 @@ export const featuredItems = [
 // Category definitions with emoji & IDs in logical menu order
 export const categories = [
   { id: "veg-pizza", label: "Veg Pizza", emoji: "🍕" },
+  { id: "veg-pizza-single", label: "Single Cheese", emoji: "🧀" },
   { id: "veg-overload", label: "Veg Overload", emoji: "🧀" },
   { id: "chicken-single", label: "Chicken (1 Cheese)", emoji: "🍗" },
   { id: "chicken-double", label: "Chicken (Double Cheese)", emoji: "🍕" },

@@ -18,6 +18,7 @@ import Orders from "./components/Orders";
 import {
   categories,
   vegPizzaMenu,
+  vegPizzaSingleCheese,
   vegOverloadPizza,
   chickenPizzaSingle,
   chickenPizzaDouble,
@@ -43,6 +44,7 @@ import {
 // Map category IDs to their data and display config matching code.html
 const menuSections = [
   { id: "veg-pizza", title: "Veg Pizza Selection", emoji: "🍕", items: vegPizzaMenu, layoutType: "pizza", isVeg: true },
+  { id: "veg-pizza-single", title: "Veg Pizza (Single Cheese)", emoji: "🧀", items: vegPizzaSingleCheese, layoutType: "pizza", isVeg: true },
   { id: "veg-overload", title: "Veg Overload Pizza (Extra Topping Double Cheese)", emoji: "🧀", items: vegOverloadPizza, layoutType: "pizza", isVeg: true },
   { id: "chicken-single", title: "Chicken Pizza (Single Cheese)", emoji: "🍗", items: chickenPizzaSingle, layoutType: "pizza", isVeg: false },
   { id: "chicken-double", title: "Chicken Pizza (Double Cheese Extra Topping)", emoji: "🍕", items: chickenPizzaDouble, layoutType: "pizza", isVeg: false },
